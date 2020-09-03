@@ -1,0 +1,96 @@
+<PongBall>:
+    size: 50, 50
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size          
+
+<PongPaddle>:
+    size: 25, 200
+    canvas:
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+
+<PongGame>:
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+
+    canvas:
+        Rectangle:
+            pos: self.center_x - 5, 0
+            size: 5, self.height 
+    
+    Button:
+        font_size: 30 
+        center_x: root.width / 3.85
+        size:100,100
+        top: root.top-2
+        text:"Player 1"
+        background_color:(0,0,0,0)
+    Label:
+        font_size: 70  
+        center_x: root.width / 4
+        top: root.top - 50
+        text: str(root.player1.score)
+    Button:
+        font_size: 30 
+        center_x: root.width * 3/3.97
+        size:100,100
+        top: root.top-2
+        text:"Player 2"
+        background_color:(0,0,0,0)
+
+    Label:
+        font_size: 70  
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: str(root.player2.score)
+    
+    Label:
+        font_size:50
+        center_x:root.width *0.75
+        top: root.top - 240
+        text:"Player 2 wins!" if root.player2.score>=2 else ""
+        background_color:(0,0,0,0)
+
+    Label:
+        font_size:50
+        center_x:root.width/4
+        top: root.top - 240
+        text:"Player 1 wins!" if root.player1.score>=2 else " "
+        background_color:(0,0,0,0)
+
+    Button:
+        font_size: 40 
+        center_x: root.width / 2
+        size:250,55
+        top: root.top-450
+        background_color:(0,0,0,0)
+        text:"Play again!" if root.player1.score>=2 else " "
+        on_press:root.play_again()
+    
+    Button:
+        font_size: 40 
+        center_x: root.width / 2
+        size:250,55
+        top: root.top-450
+        background_color:(0,0,0,0)
+        text:"Play again!" if root.player2.score>=2 else " "
+        on_press:root.play_again()
+
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+        
+    PongPaddle:
+        id: player_left
+        x: root.x
+        center_y: root.center_y
+        
+    PongPaddle:
+        id: player_right
+        x: root.width - self.width
+        center_y: root.center_y
